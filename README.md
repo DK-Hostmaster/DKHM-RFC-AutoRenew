@@ -42,14 +42,14 @@ The default is that auto renewal is enabled, meaning that domain names will be r
 
 The basic request to alter this behaviour is to use the `update domain` command. The command will support both enabling and disabling auto renewal.
 
-`info domain` will be extended with information on the current status for auto renawal.
+`info domain` will be extended with information on the current status for auto renewal.
 
 In addition to updating the auto renewal state using by updating the setting. The setting can be set both at the time of:
 
 - domain creation via `create domain`
 - transfer via `transfer domain`
 
-The handling of automatic renewal for transfer is described in detail in this RFC, for addional details on the DK Hostmaster implementation for the `transfer domain` command, please refer to the separate RFC: "[DKHM RFC for Transfer Domain EPP Command][DKHMRFCTRANSFER]" for details.
+The handling of automatic renewal for transfer is described in detail in this RFC, for additional details on the DK Hostmaster implementation for the `transfer domain` command, please refer to the separate RFC: "[DKHM RFC for Transfer Domain EPP Command][DKHMRFCTRANSFER]" for details.
 
 And last but not least the auto renewal can be disabled by using the `delete domain` command, by providing a date prior to the expiry date, auto renewal will be implicitly disables. Please see the  RFC: "[DKHM RFC for Delete Domain EPP Command][DKHMRFCDELDOM]" for details.
 
