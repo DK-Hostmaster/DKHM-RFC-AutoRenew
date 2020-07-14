@@ -39,3 +39,10 @@ venteliste
 xml
 xmlns
 xsd
+orderconfirmationToken
+schemaLocation
+testtoken
+utf
+www
+xsi
+orderconfirmationToken
