@@ -2,8 +2,8 @@
 
 # DKHM RFC for handling of Automatic Renewal
 
-![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain/workflows/Markdownlint%20Action/badge.svg)
-![Spellcheck Action](https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain/workflows/Spellcheck%20Action/badge.svg)
+![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-AutoRenew/workflows/Markdownlint%20Action/badge.svg)
+![Spellcheck Action](https://github.com/DK-Hostmaster/DKHM-RFC-AutoRenew/workflows/Spellcheck%20Action/badge.svg)
 
 ## Table of Contents
 
@@ -31,7 +31,7 @@ We have adopted the term RFC (_Request For Comments_), due to the recognition in
 <a id="xml-and-xsd-examples"></a>
 ### XML and XSD Examples
 
-All example XML files are available in the [DK Hostmaster EPP XSD repository](https://github.com/DK-Hostmaster/epp-xsd-files) in the [autorenew-dkhm-extension](https://github.com/DK-Hostmaster/epp-xsd-files/tree/autorenew-dkhm-extension) branch.
+All example XML files are available in the [DK Hostmaster EPP XSD repository](https://github.com/DK-Hostmaster/epp-xsd-files) in the [3.2 candidate][DKHMXSD3.2], which is currently a _pre-release_.
 
 <a id="description"></a>
 ## Description
@@ -59,8 +59,6 @@ And last but not least the auto renewal can be disabled by using the `delete dom
   </extension>
 ```
 
-The date follows the format used in the EPP protocol, which complies with [RFC:3339][RFC3339].
-
 The XSD for the extension look as follows:
 
 ```xsd
@@ -73,27 +71,190 @@ The XSD for the extension look as follows:
   </simpleType>
 ```
 
-Ref: [`dkhm-3.3.xsd`](https://raw.githubusercontent.com/DK-Hostmaster/epp-xsd-files/master/dkhm-3.3.xsd)
+Ref: [`dkhm-3.2.xsd`][DKHMXSD3.2]
 
-The complete command will look as follows (example lifted from RFC:5731):
-
-```xml
-```
-
-And the complete command with a deletion date specification (example lifted from RFC:5731 and modified):
+The complete command for disabling automatic renewal will look as follows (example lifted from RFC:5731 and modified):
 
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:chg>
+          <domain:registrant>DKHM1-DK</domain:registrant>
+          <domain:authInfo>
+            <domain:pw>2BARfoo</domain:pw>
+          </domain:authInfo>
+        </domain:chg>
+      </domain:update>
+    </update>
+    <extension>
+      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
 ```
+
+And the complete command for enabling automatic renewal will look as follows (example lifted from RFC:5731 and modified):
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <update>
+      <domain:update
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:chg>
+          <domain:registrant>DKHM1-DK</domain:registrant>
+          <domain:authInfo>
+            <domain:pw>2BARfoo</domain:pw>
+          </domain:authInfo>
+        </domain:chg>
+      </domain:update>
+    </update>
+    <extension>
+      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+The alteration of the value will be reflected in the `info domain` response using the same extension (example lifted from DK Hostmaster EPP service specification revision 3.8 and modified):
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+  <response>
+    <result code="1000">
+      <msg>Info result</msg>
+    </result>
+    <resData>
+      <domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>dk-hostmaster.dk</domain:name>
+        <domain:roid>DK_HOSTMASTER_DK-DK</domain:roid>
+        <domain:status s="serverUpdateProhibited"/>
+        <domain:status s="serverTransferProhibited"/>
+        <domain:status s="serverDeleteProhibited"/>
+        <domain:registrant>DKHM1-DK</domain:registrant>
+        <domain:ns>
+          <domain:hostObj>auth01.ns.dk-hostmaster.dk</domain:hostObj>
+          <domain:hostObj>auth02.ns.dk-hostmaster.dk</domain:hostObj>
+          <domain:hostObj>p.nic.dk</domain:hostObj>
+        </domain:ns>
+        <domain:host>auth01.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>auth02.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>venteliste1.dk-hostmaster.dk</domain:host>
+        <domain:host>venteliste2.dk-hostmaster.dk</domain:host>
+        <domain:host>blocked1.ns.dk-hostmaster.dk</domain:host>
+        <domain:host>blocked2.ns.dk-hostmaster.dk</domain:host>
+        <domain:clID>DKHM1-DK</domain:clID>
+        <domain:crID>DKHM1-DK</domain:crID>
+        <domain:crDate>1998-01-19T00:00:00.0Z</domain:crDate>
+        <domain:exDate>2022-03-31T00:00:00.0Z</domain:exDate>
+      </domain:infData>
+    </resData>
+    <extension>
+        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+    </extension>
+    <trID>
+      <clTRID>fee9352765ab62fefc69558d3f4e0eed</clTRID>
+      <svTRID>CF056EB6-D2CA-11E9-8DAB-C853983F0358</svTRID>
+    </trID>
+  </response>
+</epp>
+```
+
+As described the flag can be set at the time of transfer or creation.
+
+A creation command would look as follows:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+    <command>
+        <create>
+            <domain:create xmlns:domain="urn:ietf:params:xml:ns:domain-1.0" xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
+                <domain:name>eksempel.dk</domain:name>
+                <domain:period unit="y">1</domain:period>
+                <domain:ns>
+                    <domain:hostObj>ns1.dk-hostmaster.dk</domain:hostObj>
+                    <domain:hostObj>ns2.dk-hostmaster.dk</domain:hostObj>
+                </domain:ns>
+                <domain:registrant>DKHM1-DK</domain:registrant>
+                <domain:authInfo>
+                    <domain:pw />
+                </domain:authInfo>
+            </domain:create>
+        </create>
+        <extension>
+            <dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">testtoken</dkhm:orderconfirmationToken>
+            <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+        </extension>
+        <clTRID>92724843f12a3e958588679551aa988d</clTRID>
+    </command>
+</epp>
+```
+
+Do note the above example also includes the `dkhm:orderconfirmationToken`, which is not related to `dkhm:autoRenew`, but can co-exist as demonstrated by the example.
+
+For transfer an example using the same extension would look as follows (example lifted from RFC:5731 and modified):
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+  <command>
+    <transfer op="request">
+      <domain:transfer
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0">
+        <domain:name>eksempel.dk</domain:name>
+        <domain:authInfo>
+          <domain:pw>DKHM1-DK-098f6bcd4621d373cade4e832627b4f6</domain:pw>
+        </domain:authInfo>
+      </domain:transfer>
+    </transfer>
+    <extension>
+        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+    </extension>
+    <clTRID>ABC-12345</clTRID>
+  </command>
+</epp>
+```
+
+Since the support for the EPP command `transfer domain` is only a proposal, the above example relies on the outcome of the RFC. please refer to the separate RFC: "[DKHM RFC for Transfer Domain EPP Command][DKHMRFCTRANSFER]" for more details.
+
+In order to minimise the use of extensions, the registrar will be allowed to define default values for autorenewal behaviour and these defaults will be used by the above commands, where the extensions are not used.
+
+If a registrar specifies the default behaviour of own account to be that auto renewal should not happen and this setting is now overwritten by using the extension for the specific commands, auto renewal will be set to `false`.
+
+| Command\Default | Auto Renew | Expire  |
+|-----------------|------------|---------|
+| update          |    N/A     |   N/A   |
+| create          |   `true`   | `false` |
+| transfer        |   `true`   | `false` |
+
+The `update domain` will only rely on the use of the extension for explicitly setting the auto renewal for the designated domain name. Whereas `create domain` and `transfer` domain will use the default setting, unless explicitly overwritten using the extension and of course specifying a value holding the opposite value of the default. Specifying the same value as the default using the extension will of course not have any effect.
+
+Administration of these values for controlling the default behaviour will have to be done via the Registrar Portal, since account level commands are not offered by the EPP service.
 
 <a id="xsd-definition"></a>
 ## XSD Definition
 
-This XSD definition is for the proposed extension `dkhm:delDate`, which is used to communicate a deletion date differing from the default via the `delete domain` request.
+This XSD definition is for the proposed extension `dkhm:autoRenew`, which is used to communicate a the setting of auto renewal for a designated domain name.
 
 ```xsd
-  <!-- custom: delDate  -->
-  <simpleType name="delDate">
-    <restriction base="dateTime" />
+  <!-- custom: autoRenew  -->
+  <simpleType name="autoRenew">
+    <restriction base="token">
+        <enumeration value="true"/>
+        <enumeration value="false"/>
+    <restriction/>
   </simpleType>
 ```
 
@@ -101,11 +262,11 @@ Example (lifted from above):
 
 ```xml
   <extension>
-    <dkhm:delDate xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">2021-01-31T00:00:00.0Z</dkhm:delDate>
+    <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
   </extension>
 ```
 
-Ref: [`dkhm-3.3.xsd`](https://raw.githubusercontent.com/DK-Hostmaster/epp-xsd-files/master/dkhm-3.3.xsd)
+Ref: [`dkhm-3.2.xsd`][DKHMXSD3.2]
 
 :warning: The reference and file mentioned above is not released at this time, so this file might be re-versioned upon release.
 
@@ -121,4 +282,5 @@ Ref: [`dkhm-3.3.xsd`](https://raw.githubusercontent.com/DK-Hostmaster/epp-xsd-fi
 [RFC5730]: https://www.rfc-editor.org/rfc/rfc5730.html
 [RFC5731]: https://www.rfc-editor.org/rfc/rfc5731.html
 [DKHMRFCDELDOM]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
-[DKHMRFCTRANSFER]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
+[DKHM1-DK-098f6bcd4621d373cade4e832627b4f6]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
+[DKHMXSD3.2]: https://github.com/DK-Hostmaster/epp-xsd-files/blob/master/dkhm-3.2.xsd
