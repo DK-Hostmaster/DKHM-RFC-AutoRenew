@@ -1,6 +1,6 @@
 ![DK Hostmaster Logo](https://www.dk-hostmaster.dk/sites/default/files/dk-logo_0.png)
 
-# DKHM RFC for handling of Automatic Renewal
+# DKHM RFC for handling of Automatic Renewal or Expiration
 
 ![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-AutoRenew/workflows/Markdownlint%20Action/badge.svg)
 ![Spellcheck Action](https://github.com/DK-Hostmaster/DKHM-RFC-AutoRenew/workflows/Spellcheck%20Action/badge.svg)
@@ -21,17 +21,21 @@
 <a id="introduction"></a>
 ## Introduction
 
-This is a draft and proposal for changes to the process for automatic renewal for domain names via the DK Hostmaster EPP portal/service.
+This is a draft and proposal for changes to the process for automatic renewal for domain names via the DK Hostmaster EPP portal/service. The specification briefly touches on the registrar portal service, which mimicks the EPP service for consistency.
+
+The overall [description of the concept][CONCEPT] of the registrar model offered by DK Hostmaster A/S provised a an general overview, where this RFC digs into the details of automatic renewal in the context of an implementation proposal.
 
 <a id="about-this-document"></a>
 ### About this Document
 
-We have adopted the term RFC (_Request For Comments_), due to the recognition in the term and concept, so this document is a process supporting document, aiming to serve the purpose of obtaining a common understanding of the proposed implementation and to foster discussion on the details of the implementation. The final specification will be lifted into the [DK Hostmaster EPP Service Specification](https://github.com/DK-Hostmaster/epp-service-specification) implementation and this document will be closed for comments and the document no longer be updated and it will be archived.
+We have adopted the term RFC (_Request For Comments_), due to the recognition in the term and concept, so this document is a process supporting document, aiming to serve the purpose of obtaining a common understanding of the proposed implementation and to foster discussion on the details of the implementation. The final specification will be lifted into the [DK Hostmaster EPP Service Specification][DKHMEPPSPEC] implementation and this document will be closed for comments and the document no longer be updated and it will be archived.
 
 <a id="xml-and-xsd-examples"></a>
 ### XML and XSD Examples
 
-All example XML files are available in the [DK Hostmaster EPP XSD repository](https://github.com/DK-Hostmaster/epp-xsd-files) in the [3.2 candidate][DKHMXSD3.2], which is currently a _pre-release_.
+All example XML files are available in the [DK Hostmaster EPP XSD repository][DKHMXSDSPEC].
+
+The proposed extensions and XSD definitions are available in the  [3.2 candidate][DKHMXSD3.2] of the DK Hostmaster XSD, which is currently a draft and work in progress and marked as a  _pre-release_.
 
 <a id="description"></a>
 ## Description
@@ -85,9 +89,6 @@ The complete command for disabling automatic renewal will look as follows (examp
         <domain:name>eksempel.dk</domain:name>
         <domain:chg>
           <domain:registrant>DKHM1-DK</domain:registrant>
-          <domain:authInfo>
-            <domain:pw>2BARfoo</domain:pw>
-          </domain:authInfo>
         </domain:chg>
       </domain:update>
     </update>
@@ -111,9 +112,6 @@ And the complete command for enabling automatic renewal will look as follows (ex
         <domain:name>eksempel.dk</domain:name>
         <domain:chg>
           <domain:registrant>DKHM1-DK</domain:registrant>
-          <domain:authInfo>
-            <domain:pw>2BARfoo</domain:pw>
-          </domain:authInfo>
         </domain:chg>
       </domain:update>
     </update>
@@ -273,8 +271,8 @@ Ref: [`dkhm-3.2.xsd`][DKHMXSD3.2]
 <a id="references"></a>
 ## References
 
-- [DK Hostmaster EPP Service Specification](https://github.com/DK-Hostmaster/epp-service-specification)
-- [DK Hostmaster EPP Service XSD Repository](https://github.com/DK-Hostmaster/epp-xsd-files)
+- [DK Hostmaster EPP Service Specification][DKHMEPPSPEC]
+- [DK Hostmaster EPP Service XSD Repository][DKHMXSDSPEC]
 - [DKHM RFC for Delete Domain EPP Command][DKHMRFCDELDOM]
 - [RFC:5730 "Extensible Provisioning Protocol (EPP)"][RFC5730]
 - [RFC:5731 "Extensible Provisioning Protocol (EPP) Domain Name Mapping"][RFC5731]
@@ -284,3 +282,6 @@ Ref: [`dkhm-3.2.xsd`][DKHMXSD3.2]
 [DKHMRFCDELDOM]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
 [DKHM1-DK-098f6bcd4621d373cade4e832627b4f6]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
 [DKHMXSD3.2]: https://github.com/DK-Hostmaster/epp-xsd-files/blob/master/dkhm-3.2.xsd
+[CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
+[DKHMEPPSPEC]: https://github.com/DK-Hostmaster/epp-service-specification
+[DKHMXSDSPEC]: https://github.com/DK-Hostmaster/epp-xsd-files
