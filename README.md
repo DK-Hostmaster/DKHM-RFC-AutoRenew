@@ -23,7 +23,7 @@
 
 This is a draft and proposal for changes to the process for automatic renewal for domain names via the DK Hostmaster EPP portal/service. The specification briefly touches on the registrar portal service, which mimicks the EPP service for consistency.
 
-The overall [description of the concept][CONCEPT] of the registrar model offered by DK Hostmaster A/S provised a an general overview, where this RFC digs into the details of automatic renewal in the context of an implementation proposal.
+The overall [description of the concept][CONCEPT] of the registrar model offered by DK Hostmaster A/S provided as a general overview, where this RFC digs into the details of automatic renewal in the context of an implementation proposal.
 
 <a id="about-this-document"></a>
 ### About this Document
