@@ -290,12 +290,14 @@ Ref: [`dkhm-3.2.xsd`][DKHMXSD3.2]
 - [DK Hostmaster EPP Service Specification][DKHMEPPSPEC]
 - [DK Hostmaster EPP Service XSD Repository][DKHMXSDSPEC]
 - [DKHM RFC for Delete Domain EPP Command][DKHMRFCDELDOM]
+- [DKHM RFC for Transfer][DKHMRFCTRANSFER]
 - [RFC:5730 "Extensible Provisioning Protocol (EPP)"][RFC5730]
 - [RFC:5731 "Extensible Provisioning Protocol (EPP) Domain Name Mapping"][RFC5731]
 
 [RFC5730]: https://www.rfc-editor.org/rfc/rfc5730.html
 [RFC5731]: https://www.rfc-editor.org/rfc/rfc5731.html
 [DKHMRFCDELDOM]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
+[DKHMRFCTRANSFER]: https://github.com/DK-Hostmaster/DKHM-RFC-Transfer
 [DKHM1-DK-098f6bcd4621d373cade4e832627b4f6]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
 [DKHMXSD3.2]: https://github.com/DK-Hostmaster/epp-xsd-files/blob/master/dkhm-3.2.xsd
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
