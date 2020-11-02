@@ -80,7 +80,7 @@ And last but not least the auto renewal can be disabled by using the `delete dom
 
 ```xml
   <extension>
-    <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
+    <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
   </extension>
 ```
 
@@ -114,7 +114,7 @@ The complete command for disabling automatic renewal will look as follows (examp
       </domain:update>
     </update>
     <extension>
-      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
+      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>
@@ -137,7 +137,7 @@ And the complete command for enabling automatic renewal will look as follows (ex
       </domain:update>
     </update>
     <extension>
-      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>
@@ -180,7 +180,7 @@ The alteration of the value will be reflected in the `info domain` response usin
       </domain:infData>
     </resData>
     <extension>
-        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
     </extension>
     <trID>
       <clTRID>fee9352765ab62fefc69558d3f4e0eed</clTRID>
@@ -214,7 +214,7 @@ A creation command would look as follows:
         </create>
         <extension>
             <dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">testtoken</dkhm:orderconfirmationToken>
-            <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+            <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
         </extension>
         <clTRID>92724843f12a3e958588679551aa988d</clTRID>
     </command>
@@ -239,7 +239,7 @@ For transfer an example using the same extension would look as follows (example 
       </domain:transfer>
     </transfer>
     <extension>
-        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>
@@ -281,7 +281,7 @@ Example (lifted from above):
 
 ```xml
   <extension>
-    <dkhm:autoRenew xmlns:dkhm="urn:dkhm:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
+    <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
   </extension>
 ```
 
