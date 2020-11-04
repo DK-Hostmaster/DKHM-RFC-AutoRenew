@@ -47,3 +47,4 @@ www
 xsi
 orderconfirmationToken
 mimicks
+namespace
