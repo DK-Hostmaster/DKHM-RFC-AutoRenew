@@ -5,8 +5,8 @@
 ![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-AutoRenew/workflows/Markdownlint%20Action/badge.svg)
 ![Spellcheck Action](https://github.com/DK-Hostmaster/DKHM-RFC-AutoRenew/workflows/Spellcheck%20Action/badge.svg)
 
-2020-09-19
-Revision: 1.1
+2020-11-04
+Revision: 1.2
 
 ## Table of Contents
 
@@ -44,6 +44,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 <a id="document-history"></a>
 ### Document History
+
+- 1.2 2020-11-04
+  - Corrected namespace in examples, the `params` part was not included
 
 - 1.1 2020-09-19
   - Addition of disclaimer
