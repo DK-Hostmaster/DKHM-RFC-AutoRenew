@@ -5,8 +5,8 @@
 ![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-AutoRenew/workflows/Markdownlint%20Action/badge.svg)
 ![Spellcheck Action](https://github.com/DK-Hostmaster/DKHM-RFC-AutoRenew/workflows/Spellcheck%20Action/badge.svg)
 
-2020-11-04
-Revision: 1.2
+2020-11-23
+Revision: 1.3
 
 ## Table of Contents
 
@@ -45,6 +45,11 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
+- 1.3 2020-11-23
+  - Addition of additional links to resources
+  - Correction to links pointing to redundant resources
+  - Minor rephrasing and clarifications
+
 - 1.2 2020-11-04
   - Corrected namespace in examples, the `params` part was not included
 
@@ -59,7 +64,9 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 All example XML files are available in the [DK Hostmaster EPP XSD repository][DKHMXSDSPEC].
 
-The proposed extensions and XSD definitions are available in the  [3.2 candidate][DKHMXSD3.2] of the DK Hostmaster XSD, which is currently a draft and work in progress and marked as a  _pre-release_.
+The proposed extensions and XSD definitions are available in version [4.0][DKHMXSD4.0] of the DK Hostmaster XSD, which is currently marked as a  _pre-release_.
+
+The referenced XSD version is not deployed at this time and is only available in the [EPP XSD repository][DKHMXSDSPEC], it might be surpassed by a newer version upon deployment of the EPP service implementing the proposal, please refer to the revision of [EPP Service Specification][DKHMEPPSPEC] describing the implementation.
 
 <a id="description"></a>
 ## Description
@@ -79,11 +86,11 @@ In addition to updating the auto renewal state using by updating the setting. Th
 
 The handling of automatic renewal for transfer is described in detail in this RFC, for additional details on the DK Hostmaster implementation for the `transfer domain` command, please refer to the separate RFC: "[DKHM RFC for Transfer Domain EPP Command][DKHMRFCTRANSFER]" for details.
 
-And last but not least the auto renewal can be disabled by using the `delete domain` command, by providing a date prior to the expiry date, auto renewal will be implicitly disables. Please see the  RFC: "[DKHM RFC for Delete Domain EPP Command][DKHMRFCDELDOM]" for details.
+And last but not least the auto renewal can be disabled by using the `delete domain` command, by providing a date prior to the expiry date, auto renewal will be implicitly disables. Please see the  RFC: "[DKHM RFC for Delete Domain EPP Command][DKHMRFCDELETE]" for details.
 
 ```xml
   <extension>
-    <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
+    <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0">false</dkhm:autoRenew>
   </extension>
 ```
 
@@ -99,9 +106,9 @@ The XSD for the extension look as follows:
   </simpleType>
 ```
 
-Ref: [`dkhm-3.2.xsd`][DKHMXSD3.2]
+Ref: [`dkhm-4.0.xsd`][DKHMXSD4.0]
 
-The complete command for disabling automatic renewal will look as follows (example lifted from RFC:5731 and modified):
+The complete command for disabling automatic renewal will look as follows (example lifted from [RFC:5731] and modified):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -117,14 +124,14 @@ The complete command for disabling automatic renewal will look as follows (examp
       </domain:update>
     </update>
     <extension>
-      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
+      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0">false</dkhm:autoRenew>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>
 </epp>
 ```
 
-And the complete command for enabling automatic renewal will look as follows (example lifted from RFC:5731 and modified):
+And the complete command for enabling automatic renewal will look as follows (example lifted from [RFC:5731] and modified):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -140,7 +147,7 @@ And the complete command for enabling automatic renewal will look as follows (ex
       </domain:update>
     </update>
     <extension>
-      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+      <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0">true</dkhm:autoRenew>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>
@@ -183,7 +190,7 @@ The alteration of the value will be reflected in the `info domain` response usin
       </domain:infData>
     </resData>
     <extension>
-        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0">true</dkhm:autoRenew>
     </extension>
     <trID>
       <clTRID>fee9352765ab62fefc69558d3f4e0eed</clTRID>
@@ -216,8 +223,8 @@ A creation command would look as follows:
             </domain:create>
         </create>
         <extension>
-            <dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">testtoken</dkhm:orderconfirmationToken>
-            <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+            <dkhm:orderconfirmationToken xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0">testtoken</dkhm:orderconfirmationToken>
+            <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0">true</dkhm:autoRenew>
         </extension>
         <clTRID>92724843f12a3e958588679551aa988d</clTRID>
     </command>
@@ -226,7 +233,7 @@ A creation command would look as follows:
 
 Do note the above example also includes the `dkhm:orderconfirmationToken`, which is not related to `dkhm:autoRenew`, but can co-exist as demonstrated by the example.
 
-For transfer an example using the same extension would look as follows (example lifted from RFC:5731 and modified):
+For transfer an example using the same extension would look as follows (example lifted from [RFC:5731] and modified):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -242,7 +249,7 @@ For transfer an example using the same extension would look as follows (example 
       </domain:transfer>
     </transfer>
     <extension>
-        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">true</dkhm:autoRenew>
+        <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0">true</dkhm:autoRenew>
     </extension>
     <clTRID>ABC-12345</clTRID>
   </command>
@@ -284,30 +291,30 @@ Example (lifted from above):
 
 ```xml
   <extension>
-    <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-3.2">false</dkhm:autoRenew>
+    <dkhm:autoRenew xmlns:dkhm="urn:dkhm:params:xml:ns:dkhm-4.0">false</dkhm:autoRenew>
   </extension>
 ```
 
-Ref: [`dkhm-3.2.xsd`][DKHMXSD3.2]
+Ref: [`dkhm-4.0.xsd`][DKHMXSD4.0]
 
-:warning: The reference and file mentioned above is not released at this time, so this file might be re-versioned upon release.
+The referenced XSD version is not deployed at this time and is only available in the [EPP XSD repository][DKHMXSDSPEC], it might be surpassed by a newer version upon deployment of the EPP service implementing the proposal, please refer to the revision of [EPP Service Specification][DKHMEPPSPEC] describing the implementation.
 
 <a id="references"></a>
 ## References
 
-- [DK Hostmaster EPP Service Specification][DKHMEPPSPEC]
-- [DK Hostmaster EPP Service XSD Repository][DKHMXSDSPEC]
-- [DKHM RFC for Delete Domain EPP Command][DKHMRFCDELDOM]
-- [DKHM RFC for Transfer][DKHMRFCTRANSFER]
-- [RFC:5730 "Extensible Provisioning Protocol (EPP)"][RFC5730]
-- [RFC:5731 "Extensible Provisioning Protocol (EPP) Domain Name Mapping"][RFC5731]
+1. ["New basis for collaboration between registrars and DK Hostmaster"][CONCEPT]
+1. [DK Hostmaster EPP Service Specification][DKHMEPPSPEC]
+1. [DK Hostmaster EPP Service XSD Repository][DKHMXSDSPEC]
+1. [DKHM RFC for Delete Domain EPP Command][DKHMRFCDELETE]
+1. [DKHM RFC for Transfer][DKHMRFCTRANSFER]
+1. [RFC:5730 "Extensible Provisioning Protocol (EPP)"][RFC:5730]
+1. [RFC:5731 "Extensible Provisioning Protocol (EPP) Domain Name Mapping"][RFC:5731]
 
-[RFC5730]: https://www.rfc-editor.org/rfc/rfc5730.html
-[RFC5731]: https://www.rfc-editor.org/rfc/rfc5731.html
-[DKHMRFCDELDOM]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
-[DKHMRFCTRANSFER]: https://github.com/DK-Hostmaster/DKHM-RFC-Transfer
-[DKHM1-DK-098f6bcd4621d373cade4e832627b4f6]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
-[DKHMXSD3.2]: https://github.com/DK-Hostmaster/epp-xsd-files/blob/master/dkhm-3.2.xsd
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
 [DKHMEPPSPEC]: https://github.com/DK-Hostmaster/epp-service-specification
 [DKHMXSDSPEC]: https://github.com/DK-Hostmaster/epp-xsd-files
+[DKHMRFCDELETE]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
+[DKHMRFCTRANSFER]: https://github.com/DK-Hostmaster/DKHM-RFC-Transfer
+[RFC:5730]: https://www.rfc-editor.org/rfc/rfc5730.html
+[RFC:5731]: https://www.rfc-editor.org/rfc/rfc5731.html
+[DKHMXSD4.0]: https://github.com/DK-Hostmaster/epp-xsd-files/blob/master/dkhm-4.0.xsd
