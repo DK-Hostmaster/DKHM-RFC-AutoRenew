@@ -1,5 +1,7 @@
 ![DK Hostmaster Logo](https://www.dk-hostmaster.dk/sites/default/files/dk-logo_0.png)
 
+:warning: This document is not longer being updated, information has been lifted into the relevant service specifications :warning:
+
 # DKHM RFC for handling of Automatic Renewal or Expiration
 
 ![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-AutoRenew/workflows/Markdownlint%20Action/badge.svg)
